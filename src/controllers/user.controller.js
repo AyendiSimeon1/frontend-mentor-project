@@ -61,7 +61,7 @@ const logout = (req, res) => {
 };
 
 
-const resetPasswor = async (req, res, next) => {
+const resetPassword = async (req, res, next) => {
     try {
       const { token, password } = req.body;
   
@@ -91,4 +91,10 @@ const resetPasswor = async (req, res, next) => {
       next(error);
     }
   };
-  
+
+
+module.exports = {
+    resetPassword,
+    login,
+    signup
+}

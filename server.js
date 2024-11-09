@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const { connectDatabase } = require('./config/database');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandlers');
 const { createLogger } = require('./config/logger');
+const routes = require('./src/routes');
+
 
 const logger = createLogger();
 
@@ -14,7 +16,7 @@ app.use(helmet());
 app.use(cors());
 app.use(compression());
 
-
+app.user(routes);
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim())}}));
 
 app.use(notFoundHandler);
