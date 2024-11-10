@@ -1,4 +1,4 @@
-const authRoutes = require('../authRoutes');
+const authRoutes = require('../routes/auth.routes');
 const express = require('express');
 
 const router = express.Router();

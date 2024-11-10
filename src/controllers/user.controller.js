@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoke');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const generateToken = (userId) => {
@@ -97,4 +97,4 @@ module.exports = {
     resetPassword,
     login,
     signup
-}
+};
