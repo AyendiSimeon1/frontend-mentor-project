@@ -7,7 +7,7 @@ const routes = require('./src/routes');
 
 
 const app = express();
-
+app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
@@ -30,6 +30,7 @@ const port = normalizePort(process.env.PORT || '4000' );
 const server = () => {
     app.listen(port, () => {
         console.log(`Server is listening on ${port}`)
-    })
+    });
+    connectDatabase();
 }
 server();
