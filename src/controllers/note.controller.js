@@ -41,10 +41,10 @@ const getNotes = async (req, res) => {
 
 const getNoteById = async (req, res) => {
   try {
-    const { error } = validateId.validate({ id: req.params.id });
-    if(error) {
-      return res.status(400).json({ error: error.message });
-    }
+    // const { error } = validateId.validate({ id: req.params.id });
+    // if(error) {
+    //   return res.status(400).json({ error: error.message });
+    // }
 
     const note = await Note.findById(req.params.id);
     if (!note) {
@@ -58,10 +58,10 @@ const getNoteById = async (req, res) => {
 
 const updateNote = async(req, res) => {
   try {
-    const { error } = validateId.validate({ id: req.query.params });
-  if (error) {
-    res.status(400).json({ error: error.message });
-  }
+  //   const { error } = validateId.validate({ id: req.query.params });
+  // if (error) {
+  //   res.status(400).json({ error: error.message });
+  // }
   const note = await Note.findByIdAndUpdate(
     req.params.id,
     {
@@ -69,7 +69,7 @@ const updateNote = async(req, res) => {
       lastEdited: new Date()
 
     }, {
-      new: tre, runValidators: true
+      new: true, runValidators: true
     }
   );
 
@@ -87,10 +87,10 @@ const updateNote = async(req, res) => {
 const deleteNote = async (req, res) => {
 
   try {
-    const { error } = validateId.validate({ id: req.params.id });
-    if(error) {
-      return res.status(400).json({ error: error.message });
-    }
+    // const { error } = validateId.validate({ id: req.params.id });
+    // if(error) {
+    //   return res.status(400).json({ error: error.message });
+    // }
     const note = await Note.findByIdAndDelete(req.params.id);
     if(!note) {
       return res.status(404).json({ error: 'Note not found'});

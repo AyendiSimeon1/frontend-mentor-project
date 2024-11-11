@@ -14,12 +14,12 @@ noteRouter.post('/create-note', createNote);
 
 noteRouter.get('/get-notes', getNotes);
 
-noteRouter.get('/get-note-by-id', getNoteById);
+noteRouter.get('/get-note-by-id/:id', getNoteById);
 
-noteRouter.delete('/delete-note', deleteNote);
+noteRouter.delete('/delete-note/:id', deleteNote);
 
-noteRouter.put('/update-note', updateNote);
+noteRouter.put('/update-note/:id', updateNote);
 
-noteRouter.get('toggle-archive', toggleArchivedStatus);
+noteRouter.put('toggle-archive/:id', toggleArchivedStatus);
 
 module.exports = noteRouter;
