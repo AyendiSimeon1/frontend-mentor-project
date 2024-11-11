@@ -55,7 +55,8 @@ const resetPasswordSchema = Joi.object({
         'any.required': 'Email is required'
       })
   });
-  
+
+ 
   module.exports = {
     signupSchema,
     loginSchema,

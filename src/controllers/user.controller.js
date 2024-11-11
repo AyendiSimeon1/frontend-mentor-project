@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+require('dotenv').config();
 
 const generateToken = (userId) => {
     return jwt.sign(
@@ -16,17 +17,17 @@ const signup = async (req, res, next) => {
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            throw new Error('Email already registered');
+            return res.status(400).json({ error: 'Email already registered'});
         }
 
         const user = await User.create({
             email,
             password
         });
-
+        res.status(201).json({ user: user });
 
     } catch (error) {
-        next(error);
+       return res.status(500).json({ error: error});
     }
 };
 
@@ -39,16 +40,27 @@ const login = async (req, res) => {
             .select('+password');
         
         if (!user) {
-            throw new Error('Invalid email or password');
+            return res.status(400).json({ message: 'Invalid email or password' });
         }
 
         const isPasswordValid = await user.comparePassword(password);
-        if(!isPasswrodValid) {
-            throw new Error('Invalid email or password');
+        if(!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid email or password' });
         }
-        } catch (error) {
-            throw new Error(error);
-        }
+        const token = jwt.sign(
+            { userId: user._id},
+            process.env.JWT_SECRET,
+            { expiresIn: '24h'}
+        )
+        
+        return res.status(200).json({
+            message: 'User logged in successfully',
+            token,
+            user
+        });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
     
 };
 
